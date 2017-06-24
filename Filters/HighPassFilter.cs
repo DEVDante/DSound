@@ -1,20 +1,19 @@
-﻿using System;
+﻿using NAudio.Wave;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NAudio;
-using NAudio.Wave;
 
 namespace DSound.Filters
 {
-    public class LowPassFilter : IFilterProvider
+    public class HighPassFilter : IFilterProvider
     {
         private readonly ISampleProvider _sourceProvider;
         private readonly int _threshold;
         private readonly long _fileLength;
 
-        public LowPassFilter(ISampleProvider source, int threshold, long numberOfSamples)
+        public HighPassFilter(ISampleProvider source, int threshold, long numberOfSamples)
         {
             _sourceProvider = source;
             _threshold = threshold;
@@ -38,6 +37,7 @@ namespace DSound.Filters
             _sourceProvider.Read(buffer, 0, 1);
             float actualSample = buffer[0];
             float previousSample = buffer[0];
+            float previousBareSample = buffer[0];
             yield return actualSample;
 
             double timeBetweenSamples = 1.0 / WaveFormat.SampleRate;
@@ -45,8 +45,9 @@ namespace DSound.Filters
             for (int currentSample = 1; currentSample < _fileLength; currentSample++)
             {
                 _sourceProvider.Read(buffer, currentSample, 1);
-                actualSample = previousSample + alphaMultiplier*(buffer[0] - previousSample);
+                actualSample = alphaMultiplier * (previousSample + buffer[0] - previousBareSample);
                 previousSample = actualSample;
+                previousBareSample = buffer[0];
                 yield return actualSample;
             }
         }
