@@ -15,8 +15,7 @@ namespace DSound
     public partial class mainWindow : Form
     {
         private IWavePlayer _waveOutDevice;
-        //private AudioFileReader _audioFileReader;
-        private WaveFileReader _audioFileReader;
+        private MediaFoundationReader _audioFileReader;
 
         private Boolean _playing;
 
@@ -24,7 +23,6 @@ namespace DSound
         {
             InitializeComponent();
 
-            _waveOutDevice = new WaveOut();
             _playing = false;
         }
 
@@ -32,8 +30,12 @@ namespace DSound
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                _audioFileReader = new WaveFileReader(openFileDialog.FileName);
-                waveViewer.WaveStream = new WaveFileReader(openFileDialog.FileName);
+                if(_waveOutDevice != null)
+                    _waveOutDevice.Dispose();
+                _waveOutDevice = new WasapiOut();
+
+                _audioFileReader = new MediaFoundationReader(openFileDialog.FileName);
+                waveViewer.WaveStream = new MediaFoundationReader(openFileDialog.FileName);
                 waveViewer.FitToScreen();
 
                 _waveOutDevice.Init(_audioFileReader);

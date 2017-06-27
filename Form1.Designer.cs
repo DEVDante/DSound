@@ -187,7 +187,7 @@
             // 
             // openFileDialog
             // 
-            this.openFileDialog.Filter = "Wave files|*.wav";
+            this.openFileDialog.Filter = "Wave files|*.wav|MP3 files|*.mp3";
             // 
             // mainWindow
             // 
