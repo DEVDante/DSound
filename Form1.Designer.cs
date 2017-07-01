@@ -28,7 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -39,27 +39,31 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainSplitContainer = new System.Windows.Forms.SplitContainer();
             this.graphSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.waveViewer = new NAudio.Gui.WaveViewer();
-            this.menuStrip1.SuspendLayout();
+            this.waveViewer = new DSound.CustomWaveViewer();
+            this.stopButton = new System.Windows.Forms.Button();
+            this.playButton = new System.Windows.Forms.Button();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
             this.mainSplitContainer.Panel1.SuspendLayout();
+            this.mainSplitContainer.Panel2.SuspendLayout();
             this.mainSplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.graphSplitContainer)).BeginInit();
             this.graphSplitContainer.Panel1.SuspendLayout();
             this.graphSplitContainer.SuspendLayout();
             this.SuspendLayout();
             // 
-            // menuStrip1
+            // menuStrip
             // 
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.optionsToolStripMenuItem,
             this.infoToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(976, 24);
-            this.menuStrip1.TabIndex = 0;
-            this.menuStrip1.Text = "menuBar";
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(976, 24);
+            this.menuStrip.TabIndex = 0;
+            this.menuStrip.Text = "menuBar";
             // 
             // fileToolStripMenuItem
             // 
@@ -77,6 +81,7 @@
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
             this.openToolStripMenuItem.Text = "Open";
+            this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
@@ -124,6 +129,11 @@
             // mainSplitContainer.Panel1
             // 
             this.mainSplitContainer.Panel1.Controls.Add(this.graphSplitContainer);
+            // 
+            // mainSplitContainer.Panel2
+            // 
+            this.mainSplitContainer.Panel2.Controls.Add(this.stopButton);
+            this.mainSplitContainer.Panel2.Controls.Add(this.playButton);
             this.mainSplitContainer.Size = new System.Drawing.Size(976, 420);
             this.mainSplitContainer.SplitterDistance = 818;
             this.mainSplitContainer.TabIndex = 1;
@@ -144,14 +154,40 @@
             // 
             // waveViewer
             // 
+            this.waveViewer.Dock = System.Windows.Forms.DockStyle.Fill;
             this.waveViewer.Location = new System.Drawing.Point(0, 0);
-            this.waveViewer.Margin = new System.Windows.Forms.Padding(0);
             this.waveViewer.Name = "waveViewer";
+            this.waveViewer.PenColor = System.Drawing.Color.DodgerBlue;
+            this.waveViewer.PenWidth = 1F;
             this.waveViewer.SamplesPerPixel = 128;
             this.waveViewer.Size = new System.Drawing.Size(818, 207);
             this.waveViewer.StartPosition = ((long)(0));
             this.waveViewer.TabIndex = 0;
             this.waveViewer.WaveStream = null;
+            // 
+            // stopButton
+            // 
+            this.stopButton.Location = new System.Drawing.Point(34, 70);
+            this.stopButton.Name = "stopButton";
+            this.stopButton.Size = new System.Drawing.Size(75, 23);
+            this.stopButton.TabIndex = 1;
+            this.stopButton.Text = "Stop";
+            this.stopButton.UseVisualStyleBackColor = true;
+            this.stopButton.Click += new System.EventHandler(this.stopButton_Click);
+            // 
+            // playButton
+            // 
+            this.playButton.Location = new System.Drawing.Point(34, 40);
+            this.playButton.Name = "playButton";
+            this.playButton.Size = new System.Drawing.Size(75, 23);
+            this.playButton.TabIndex = 0;
+            this.playButton.Text = "Play";
+            this.playButton.UseVisualStyleBackColor = true;
+            this.playButton.Click += new System.EventHandler(this.playButton_Click);
+            // 
+            // openFileDialog
+            // 
+            this.openFileDialog.Filter = "Wave files|*.wav|MP3 files|*.mp3";
             // 
             // mainWindow
             // 
@@ -159,13 +195,15 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(976, 444);
             this.Controls.Add(this.mainSplitContainer);
-            this.Controls.Add(this.menuStrip1);
-            this.MainMenuStrip = this.menuStrip1;
+            this.Controls.Add(this.menuStrip);
+            this.MainMenuStrip = this.menuStrip;
             this.Name = "mainWindow";
             this.Text = "DSound";
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.mainWindow_FormClosing);
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
             this.mainSplitContainer.Panel1.ResumeLayout(false);
+            this.mainSplitContainer.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).EndInit();
             this.mainSplitContainer.ResumeLayout(false);
             this.graphSplitContainer.Panel1.ResumeLayout(false);
@@ -178,7 +216,7 @@
 
         #endregion
 
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem fileToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
@@ -189,7 +227,10 @@
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
         private System.Windows.Forms.SplitContainer mainSplitContainer;
         private System.Windows.Forms.SplitContainer graphSplitContainer;
-        private NAudio.Gui.WaveViewer waveViewer;
+        private CustomWaveViewer waveViewer;
+        private System.Windows.Forms.OpenFileDialog openFileDialog;
+        private System.Windows.Forms.Button stopButton;
+        private System.Windows.Forms.Button playButton;
     }
 }
 
