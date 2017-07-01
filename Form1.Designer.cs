@@ -39,6 +39,10 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainSplitContainer = new System.Windows.Forms.SplitContainer();
             this.graphSplitContainer = new System.Windows.Forms.SplitContainer();
+            this.waveViewer = new DSound.CustomWaveViewer();
+            this.buttonClearFilters = new System.Windows.Forms.Button();
+            this.buttonLowPass = new System.Windows.Forms.Button();
+            this.buttonHighPass = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.QNumeric = new System.Windows.Forms.NumericUpDown();
             this.label1 = new System.Windows.Forms.Label();
@@ -46,10 +50,8 @@
             this.stopButton = new System.Windows.Forms.Button();
             this.playButton = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.buttonHighPass = new System.Windows.Forms.Button();
-            this.buttonLowPass = new System.Windows.Forms.Button();
-            this.waveViewer = new DSound.CustomWaveViewer();
-            this.buttonClearFilters = new System.Windows.Forms.Button();
+            this.buttonCPG = new System.Windows.Forms.Button();
+            this.buttonCSG = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
             this.mainSplitContainer.Panel1.SuspendLayout();
@@ -161,6 +163,8 @@
             // 
             // graphSplitContainer.Panel2
             // 
+            this.graphSplitContainer.Panel2.Controls.Add(this.buttonCSG);
+            this.graphSplitContainer.Panel2.Controls.Add(this.buttonCPG);
             this.graphSplitContainer.Panel2.Controls.Add(this.buttonClearFilters);
             this.graphSplitContainer.Panel2.Controls.Add(this.buttonLowPass);
             this.graphSplitContainer.Panel2.Controls.Add(this.buttonHighPass);
@@ -171,6 +175,49 @@
             this.graphSplitContainer.Size = new System.Drawing.Size(818, 420);
             this.graphSplitContainer.SplitterDistance = 207;
             this.graphSplitContainer.TabIndex = 0;
+            // 
+            // waveViewer
+            // 
+            this.waveViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.waveViewer.Location = new System.Drawing.Point(0, 0);
+            this.waveViewer.Name = "waveViewer";
+            this.waveViewer.PenColor = System.Drawing.Color.DodgerBlue;
+            this.waveViewer.PenWidth = 1F;
+            this.waveViewer.SamplesPerPixel = 128;
+            this.waveViewer.Size = new System.Drawing.Size(818, 207);
+            this.waveViewer.StartPosition = ((long)(0));
+            this.waveViewer.TabIndex = 0;
+            this.waveViewer.WaveStream = null;
+            // 
+            // buttonClearFilters
+            // 
+            this.buttonClearFilters.Location = new System.Drawing.Point(740, 174);
+            this.buttonClearFilters.Name = "buttonClearFilters";
+            this.buttonClearFilters.Size = new System.Drawing.Size(75, 23);
+            this.buttonClearFilters.TabIndex = 6;
+            this.buttonClearFilters.Text = "Clear filters";
+            this.buttonClearFilters.UseVisualStyleBackColor = true;
+            this.buttonClearFilters.Click += new System.EventHandler(this.buttonClearFilters_Click);
+            // 
+            // buttonLowPass
+            // 
+            this.buttonLowPass.Location = new System.Drawing.Point(30, 126);
+            this.buttonLowPass.Name = "buttonLowPass";
+            this.buttonLowPass.Size = new System.Drawing.Size(119, 23);
+            this.buttonLowPass.TabIndex = 5;
+            this.buttonLowPass.Text = "Low pass filter";
+            this.buttonLowPass.UseVisualStyleBackColor = true;
+            this.buttonLowPass.Click += new System.EventHandler(this.buttonLowPass_Click);
+            // 
+            // buttonHighPass
+            // 
+            this.buttonHighPass.Location = new System.Drawing.Point(30, 97);
+            this.buttonHighPass.Name = "buttonHighPass";
+            this.buttonHighPass.Size = new System.Drawing.Size(119, 23);
+            this.buttonHighPass.TabIndex = 4;
+            this.buttonHighPass.Text = "High pass filter";
+            this.buttonHighPass.UseVisualStyleBackColor = true;
+            this.buttonHighPass.Click += new System.EventHandler(this.buttonHighPass_Click);
             // 
             // label2
             // 
@@ -246,48 +293,25 @@
             // 
             this.openFileDialog.Filter = "Wave files|*.wav|MP3 files|*.mp3";
             // 
-            // buttonHighPass
+            // buttonCPG
             // 
-            this.buttonHighPass.Location = new System.Drawing.Point(30, 97);
-            this.buttonHighPass.Name = "buttonHighPass";
-            this.buttonHighPass.Size = new System.Drawing.Size(119, 23);
-            this.buttonHighPass.TabIndex = 4;
-            this.buttonHighPass.Text = "High pass filter";
-            this.buttonHighPass.UseVisualStyleBackColor = true;
-            this.buttonHighPass.Click += new System.EventHandler(this.buttonHighPass_Click);
+            this.buttonCPG.Location = new System.Drawing.Point(30, 155);
+            this.buttonCPG.Name = "buttonCPG";
+            this.buttonCPG.Size = new System.Drawing.Size(119, 23);
+            this.buttonCPG.TabIndex = 7;
+            this.buttonCPG.Text = "Constant peak gain";
+            this.buttonCPG.UseVisualStyleBackColor = true;
+            this.buttonCPG.Click += new System.EventHandler(this.buttonCPG_Click);
             // 
-            // buttonLowPass
+            // buttonCSG
             // 
-            this.buttonLowPass.Location = new System.Drawing.Point(30, 126);
-            this.buttonLowPass.Name = "buttonLowPass";
-            this.buttonLowPass.Size = new System.Drawing.Size(119, 23);
-            this.buttonLowPass.TabIndex = 5;
-            this.buttonLowPass.Text = "Low pass filter";
-            this.buttonLowPass.UseVisualStyleBackColor = true;
-            this.buttonLowPass.Click += new System.EventHandler(this.buttonLowPass_Click);
-            // 
-            // waveViewer
-            // 
-            this.waveViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.waveViewer.Location = new System.Drawing.Point(0, 0);
-            this.waveViewer.Name = "waveViewer";
-            this.waveViewer.PenColor = System.Drawing.Color.DodgerBlue;
-            this.waveViewer.PenWidth = 1F;
-            this.waveViewer.SamplesPerPixel = 128;
-            this.waveViewer.Size = new System.Drawing.Size(818, 207);
-            this.waveViewer.StartPosition = ((long)(0));
-            this.waveViewer.TabIndex = 0;
-            this.waveViewer.WaveStream = null;
-            // 
-            // buttonClearFilters
-            // 
-            this.buttonClearFilters.Location = new System.Drawing.Point(740, 174);
-            this.buttonClearFilters.Name = "buttonClearFilters";
-            this.buttonClearFilters.Size = new System.Drawing.Size(75, 23);
-            this.buttonClearFilters.TabIndex = 6;
-            this.buttonClearFilters.Text = "Clear filters";
-            this.buttonClearFilters.UseVisualStyleBackColor = true;
-            this.buttonClearFilters.Click += new System.EventHandler(this.buttonClearFilters_Click);
+            this.buttonCSG.Location = new System.Drawing.Point(30, 183);
+            this.buttonCSG.Name = "buttonCSG";
+            this.buttonCSG.Size = new System.Drawing.Size(119, 23);
+            this.buttonCSG.TabIndex = 8;
+            this.buttonCSG.Text = "Constant skirt gain";
+            this.buttonCSG.UseVisualStyleBackColor = true;
+            this.buttonCSG.Click += new System.EventHandler(this.buttonCSG_Click);
             // 
             // mainWindow
             // 
@@ -342,6 +366,8 @@
         private System.Windows.Forms.Button buttonLowPass;
         private System.Windows.Forms.Button buttonHighPass;
         private System.Windows.Forms.Button buttonClearFilters;
+        private System.Windows.Forms.Button buttonCPG;
+        private System.Windows.Forms.Button buttonCSG;
     }
 }
 

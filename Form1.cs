@@ -104,7 +104,7 @@ namespace DSound
             }
             catch(Exception ex)
             { }
-}
+        }
 
         private void buttonLowPass_Click(object sender, EventArgs e)
         {
@@ -118,6 +118,7 @@ namespace DSound
             }
             catch(Exception ex)
             { }
+            
         }
 
         private void Reevaluate()
@@ -139,6 +140,34 @@ namespace DSound
                 Reevaluate();
             }
             catch(Exception ex)
+            { }
+        }
+
+        private void buttonCPG_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _filters.Add(
+                    Filters.Filter.CreateFiltersTable(
+                        BiQuadFilter.BandPassFilterConstantPeakGain(_audioFileReader.WaveFormat.SampleRate, (float)CutoffNumeric.Value,
+                            (float)QNumeric.Value), _audioFileReader.WaveFormat.Channels));
+                Reevaluate();
+            }
+            catch (Exception ex)
+            { }
+        }
+
+        private void buttonCSG_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _filters.Add(
+                    Filters.Filter.CreateFiltersTable(
+                        BiQuadFilter.BandPassFilterConstantSkirtGain(_audioFileReader.WaveFormat.SampleRate, (float)CutoffNumeric.Value,
+                            (float)QNumeric.Value), _audioFileReader.WaveFormat.Channels));
+                Reevaluate();
+            }
+            catch (Exception ex)
             { }
         }
     }
