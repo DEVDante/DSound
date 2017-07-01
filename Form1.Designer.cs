@@ -52,6 +52,7 @@
             this.stopButton = new System.Windows.Forms.Button();
             this.playButton = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.saveFileDialog = new System.Windows.Forms.SaveFileDialog();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
             this.mainSplitContainer.Panel1.SuspendLayout();
@@ -100,6 +101,7 @@
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "Save";
+            this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
@@ -313,6 +315,10 @@
             // 
             this.openFileDialog.Filter = "Wave files|*.wav|MP3 files|*.mp3";
             // 
+            // saveFileDialog
+            // 
+            this.saveFileDialog.Filter = "Wave files|*.WAV";
+            // 
             // mainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -368,6 +374,7 @@
         private System.Windows.Forms.Button buttonClearFilters;
         private System.Windows.Forms.Button buttonCPG;
         private System.Windows.Forms.Button buttonCSG;
+        private System.Windows.Forms.SaveFileDialog saveFileDialog;
     }
 }
 

@@ -175,5 +175,20 @@ namespace DSound
             catch (Exception ex)
             { }
         }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(_waveOutDevice != null && _filtered != null)
+            {
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    WaveFileWriter.CreateWaveFile(saveFileDialog.FileName, _filtered.ToWaveProvider16());
+                }
+            }
+            else
+            {
+                MessageBox.Show("Open an audio file first", "Error");
+            }
+        }
     }
 }
