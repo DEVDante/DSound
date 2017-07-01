@@ -38,7 +38,8 @@ namespace DSound
                 _audioFileReader = new AudioFileReader(openFileDialog.FileName);
                 waveViewer.WaveStream = new MediaFoundationReader(openFileDialog.FileName);
                 waveViewer.FitToScreen();
-                              
+
+                _playing = false;
                 playButton.Text = "Play";
 
                 Reevaluate();
@@ -68,6 +69,7 @@ namespace DSound
         private void stopButton_Click(object sender, EventArgs e)
         {
             _playing = false;
+            playButton.Text = "Play";
             if (_waveOutDevice != null)
             {
                 _waveOutDevice.Stop();
@@ -130,6 +132,9 @@ namespace DSound
             _waveOutDevice = new WasapiOut();
 
             _waveOutDevice.Init(_filtered);
+
+            _playing = false;
+            playButton.Text = "Play";
         }
 
         private void buttonClearFilters_Click(object sender, EventArgs e)

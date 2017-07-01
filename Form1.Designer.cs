@@ -40,6 +40,8 @@
             this.mainSplitContainer = new System.Windows.Forms.SplitContainer();
             this.graphSplitContainer = new System.Windows.Forms.SplitContainer();
             this.waveViewer = new DSound.CustomWaveViewer();
+            this.buttonCSG = new System.Windows.Forms.Button();
+            this.buttonCPG = new System.Windows.Forms.Button();
             this.buttonClearFilters = new System.Windows.Forms.Button();
             this.buttonLowPass = new System.Windows.Forms.Button();
             this.buttonHighPass = new System.Windows.Forms.Button();
@@ -50,8 +52,6 @@
             this.stopButton = new System.Windows.Forms.Button();
             this.playButton = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
-            this.buttonCPG = new System.Windows.Forms.Button();
-            this.buttonCSG = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
             this.mainSplitContainer.Panel1.SuspendLayout();
@@ -91,25 +91,25 @@
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(100, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(149, 6);
             // 
             // exitToolStripMenuItem
             // 
             this.exitToolStripMenuItem.Name = "exitToolStripMenuItem";
-            this.exitToolStripMenuItem.Size = new System.Drawing.Size(103, 22);
+            this.exitToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
             this.exitToolStripMenuItem.Text = "Exit";
             // 
             // optionsToolStripMenuItem
@@ -146,7 +146,7 @@
             // 
             this.mainSplitContainer.Panel2.Controls.Add(this.stopButton);
             this.mainSplitContainer.Panel2.Controls.Add(this.playButton);
-            this.mainSplitContainer.Size = new System.Drawing.Size(976, 420);
+            this.mainSplitContainer.Size = new System.Drawing.Size(976, 412);
             this.mainSplitContainer.SplitterDistance = 818;
             this.mainSplitContainer.TabIndex = 1;
             // 
@@ -172,8 +172,8 @@
             this.graphSplitContainer.Panel2.Controls.Add(this.QNumeric);
             this.graphSplitContainer.Panel2.Controls.Add(this.label1);
             this.graphSplitContainer.Panel2.Controls.Add(this.CutoffNumeric);
-            this.graphSplitContainer.Size = new System.Drawing.Size(818, 420);
-            this.graphSplitContainer.SplitterDistance = 207;
+            this.graphSplitContainer.Size = new System.Drawing.Size(818, 412);
+            this.graphSplitContainer.SplitterDistance = 241;
             this.graphSplitContainer.TabIndex = 0;
             // 
             // waveViewer
@@ -184,14 +184,34 @@
             this.waveViewer.PenColor = System.Drawing.Color.DodgerBlue;
             this.waveViewer.PenWidth = 1F;
             this.waveViewer.SamplesPerPixel = 128;
-            this.waveViewer.Size = new System.Drawing.Size(818, 207);
+            this.waveViewer.Size = new System.Drawing.Size(818, 241);
             this.waveViewer.StartPosition = ((long)(0));
             this.waveViewer.TabIndex = 0;
             this.waveViewer.WaveStream = null;
             // 
+            // buttonCSG
+            // 
+            this.buttonCSG.Location = new System.Drawing.Point(405, 97);
+            this.buttonCSG.Name = "buttonCSG";
+            this.buttonCSG.Size = new System.Drawing.Size(119, 23);
+            this.buttonCSG.TabIndex = 8;
+            this.buttonCSG.Text = "Constant skirt gain";
+            this.buttonCSG.UseVisualStyleBackColor = true;
+            this.buttonCSG.Click += new System.EventHandler(this.buttonCSG_Click);
+            // 
+            // buttonCPG
+            // 
+            this.buttonCPG.Location = new System.Drawing.Point(280, 97);
+            this.buttonCPG.Name = "buttonCPG";
+            this.buttonCPG.Size = new System.Drawing.Size(119, 23);
+            this.buttonCPG.TabIndex = 7;
+            this.buttonCPG.Text = "Constant peak gain";
+            this.buttonCPG.UseVisualStyleBackColor = true;
+            this.buttonCPG.Click += new System.EventHandler(this.buttonCPG_Click);
+            // 
             // buttonClearFilters
             // 
-            this.buttonClearFilters.Location = new System.Drawing.Point(740, 174);
+            this.buttonClearFilters.Location = new System.Drawing.Point(740, 97);
             this.buttonClearFilters.Name = "buttonClearFilters";
             this.buttonClearFilters.Size = new System.Drawing.Size(75, 23);
             this.buttonClearFilters.TabIndex = 6;
@@ -201,7 +221,7 @@
             // 
             // buttonLowPass
             // 
-            this.buttonLowPass.Location = new System.Drawing.Point(30, 126);
+            this.buttonLowPass.Location = new System.Drawing.Point(155, 97);
             this.buttonLowPass.Name = "buttonLowPass";
             this.buttonLowPass.Size = new System.Drawing.Size(119, 23);
             this.buttonLowPass.TabIndex = 5;
@@ -271,9 +291,9 @@
             // 
             // stopButton
             // 
-            this.stopButton.Location = new System.Drawing.Point(34, 70);
+            this.stopButton.Location = new System.Drawing.Point(13, 32);
             this.stopButton.Name = "stopButton";
-            this.stopButton.Size = new System.Drawing.Size(75, 23);
+            this.stopButton.Size = new System.Drawing.Size(129, 23);
             this.stopButton.TabIndex = 1;
             this.stopButton.Text = "Stop";
             this.stopButton.UseVisualStyleBackColor = true;
@@ -281,9 +301,9 @@
             // 
             // playButton
             // 
-            this.playButton.Location = new System.Drawing.Point(34, 40);
+            this.playButton.Location = new System.Drawing.Point(13, 3);
             this.playButton.Name = "playButton";
-            this.playButton.Size = new System.Drawing.Size(75, 23);
+            this.playButton.Size = new System.Drawing.Size(129, 23);
             this.playButton.TabIndex = 0;
             this.playButton.Text = "Play";
             this.playButton.UseVisualStyleBackColor = true;
@@ -293,31 +313,11 @@
             // 
             this.openFileDialog.Filter = "Wave files|*.wav|MP3 files|*.mp3";
             // 
-            // buttonCPG
-            // 
-            this.buttonCPG.Location = new System.Drawing.Point(30, 155);
-            this.buttonCPG.Name = "buttonCPG";
-            this.buttonCPG.Size = new System.Drawing.Size(119, 23);
-            this.buttonCPG.TabIndex = 7;
-            this.buttonCPG.Text = "Constant peak gain";
-            this.buttonCPG.UseVisualStyleBackColor = true;
-            this.buttonCPG.Click += new System.EventHandler(this.buttonCPG_Click);
-            // 
-            // buttonCSG
-            // 
-            this.buttonCSG.Location = new System.Drawing.Point(30, 183);
-            this.buttonCSG.Name = "buttonCSG";
-            this.buttonCSG.Size = new System.Drawing.Size(119, 23);
-            this.buttonCSG.TabIndex = 8;
-            this.buttonCSG.Text = "Constant skirt gain";
-            this.buttonCSG.UseVisualStyleBackColor = true;
-            this.buttonCSG.Click += new System.EventHandler(this.buttonCSG_Click);
-            // 
             // mainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(976, 444);
+            this.ClientSize = new System.Drawing.Size(976, 436);
             this.Controls.Add(this.mainSplitContainer);
             this.Controls.Add(this.menuStrip);
             this.MainMenuStrip = this.menuStrip;
