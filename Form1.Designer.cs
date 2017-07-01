@@ -39,10 +39,17 @@
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.mainSplitContainer = new System.Windows.Forms.SplitContainer();
             this.graphSplitContainer = new System.Windows.Forms.SplitContainer();
-            this.waveViewer = new DSound.CustomWaveViewer();
+            this.label2 = new System.Windows.Forms.Label();
+            this.QNumeric = new System.Windows.Forms.NumericUpDown();
+            this.label1 = new System.Windows.Forms.Label();
+            this.CutoffNumeric = new System.Windows.Forms.NumericUpDown();
             this.stopButton = new System.Windows.Forms.Button();
             this.playButton = new System.Windows.Forms.Button();
             this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.buttonHighPass = new System.Windows.Forms.Button();
+            this.buttonLowPass = new System.Windows.Forms.Button();
+            this.waveViewer = new DSound.CustomWaveViewer();
+            this.buttonClearFilters = new System.Windows.Forms.Button();
             this.menuStrip.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).BeginInit();
             this.mainSplitContainer.Panel1.SuspendLayout();
@@ -50,7 +57,10 @@
             this.mainSplitContainer.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.graphSplitContainer)).BeginInit();
             this.graphSplitContainer.Panel1.SuspendLayout();
+            this.graphSplitContainer.Panel2.SuspendLayout();
             this.graphSplitContainer.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.QNumeric)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CutoffNumeric)).BeginInit();
             this.SuspendLayout();
             // 
             // menuStrip
@@ -148,22 +158,69 @@
             // graphSplitContainer.Panel1
             // 
             this.graphSplitContainer.Panel1.Controls.Add(this.waveViewer);
+            // 
+            // graphSplitContainer.Panel2
+            // 
+            this.graphSplitContainer.Panel2.Controls.Add(this.buttonClearFilters);
+            this.graphSplitContainer.Panel2.Controls.Add(this.buttonLowPass);
+            this.graphSplitContainer.Panel2.Controls.Add(this.buttonHighPass);
+            this.graphSplitContainer.Panel2.Controls.Add(this.label2);
+            this.graphSplitContainer.Panel2.Controls.Add(this.QNumeric);
+            this.graphSplitContainer.Panel2.Controls.Add(this.label1);
+            this.graphSplitContainer.Panel2.Controls.Add(this.CutoffNumeric);
             this.graphSplitContainer.Size = new System.Drawing.Size(818, 420);
             this.graphSplitContainer.SplitterDistance = 207;
             this.graphSplitContainer.TabIndex = 0;
             // 
-            // waveViewer
+            // label2
             // 
-            this.waveViewer.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.waveViewer.Location = new System.Drawing.Point(0, 0);
-            this.waveViewer.Name = "waveViewer";
-            this.waveViewer.PenColor = System.Drawing.Color.DodgerBlue;
-            this.waveViewer.PenWidth = 1F;
-            this.waveViewer.SamplesPerPixel = 128;
-            this.waveViewer.Size = new System.Drawing.Size(818, 207);
-            this.waveViewer.StartPosition = ((long)(0));
-            this.waveViewer.TabIndex = 0;
-            this.waveViewer.WaveStream = null;
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(13, 73);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(68, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Q parameter:";
+            // 
+            // QNumeric
+            // 
+            this.QNumeric.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.QNumeric.Location = new System.Drawing.Point(107, 71);
+            this.QNumeric.Name = "QNumeric";
+            this.QNumeric.Size = new System.Drawing.Size(57, 20);
+            this.QNumeric.TabIndex = 2;
+            this.QNumeric.Value = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+            this.QNumeric.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(13, 44);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(88, 13);
+            this.label1.TabIndex = 1;
+            this.label1.Text = "Cutoff frequency:";
+            // 
+            // CutoffNumeric
+            // 
+            this.CutoffNumeric.ForeColor = System.Drawing.SystemColors.WindowText;
+            this.CutoffNumeric.Location = new System.Drawing.Point(107, 42);
+            this.CutoffNumeric.Maximum = new decimal(new int[] {
+            50000,
+            0,
+            0,
+            0});
+            this.CutoffNumeric.Name = "CutoffNumeric";
+            this.CutoffNumeric.Size = new System.Drawing.Size(57, 20);
+            this.CutoffNumeric.TabIndex = 0;
+            this.CutoffNumeric.Value = new decimal(new int[] {
+            48000,
+            0,
+            0,
+            0});
             // 
             // stopButton
             // 
@@ -189,6 +246,49 @@
             // 
             this.openFileDialog.Filter = "Wave files|*.wav|MP3 files|*.mp3";
             // 
+            // buttonHighPass
+            // 
+            this.buttonHighPass.Location = new System.Drawing.Point(30, 97);
+            this.buttonHighPass.Name = "buttonHighPass";
+            this.buttonHighPass.Size = new System.Drawing.Size(119, 23);
+            this.buttonHighPass.TabIndex = 4;
+            this.buttonHighPass.Text = "High pass filter";
+            this.buttonHighPass.UseVisualStyleBackColor = true;
+            this.buttonHighPass.Click += new System.EventHandler(this.buttonHighPass_Click);
+            // 
+            // buttonLowPass
+            // 
+            this.buttonLowPass.Location = new System.Drawing.Point(30, 126);
+            this.buttonLowPass.Name = "buttonLowPass";
+            this.buttonLowPass.Size = new System.Drawing.Size(119, 23);
+            this.buttonLowPass.TabIndex = 5;
+            this.buttonLowPass.Text = "Low pass filter";
+            this.buttonLowPass.UseVisualStyleBackColor = true;
+            this.buttonLowPass.Click += new System.EventHandler(this.buttonLowPass_Click);
+            // 
+            // waveViewer
+            // 
+            this.waveViewer.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.waveViewer.Location = new System.Drawing.Point(0, 0);
+            this.waveViewer.Name = "waveViewer";
+            this.waveViewer.PenColor = System.Drawing.Color.DodgerBlue;
+            this.waveViewer.PenWidth = 1F;
+            this.waveViewer.SamplesPerPixel = 128;
+            this.waveViewer.Size = new System.Drawing.Size(818, 207);
+            this.waveViewer.StartPosition = ((long)(0));
+            this.waveViewer.TabIndex = 0;
+            this.waveViewer.WaveStream = null;
+            // 
+            // buttonClearFilters
+            // 
+            this.buttonClearFilters.Location = new System.Drawing.Point(740, 174);
+            this.buttonClearFilters.Name = "buttonClearFilters";
+            this.buttonClearFilters.Size = new System.Drawing.Size(75, 23);
+            this.buttonClearFilters.TabIndex = 6;
+            this.buttonClearFilters.Text = "Clear filters";
+            this.buttonClearFilters.UseVisualStyleBackColor = true;
+            this.buttonClearFilters.Click += new System.EventHandler(this.buttonClearFilters_Click);
+            // 
             // mainWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -207,8 +307,12 @@
             ((System.ComponentModel.ISupportInitialize)(this.mainSplitContainer)).EndInit();
             this.mainSplitContainer.ResumeLayout(false);
             this.graphSplitContainer.Panel1.ResumeLayout(false);
+            this.graphSplitContainer.Panel2.ResumeLayout(false);
+            this.graphSplitContainer.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.graphSplitContainer)).EndInit();
             this.graphSplitContainer.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.QNumeric)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.CutoffNumeric)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -231,6 +335,13 @@
         private System.Windows.Forms.OpenFileDialog openFileDialog;
         private System.Windows.Forms.Button stopButton;
         private System.Windows.Forms.Button playButton;
+        private System.Windows.Forms.NumericUpDown CutoffNumeric;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.NumericUpDown QNumeric;
+        private System.Windows.Forms.Button buttonLowPass;
+        private System.Windows.Forms.Button buttonHighPass;
+        private System.Windows.Forms.Button buttonClearFilters;
     }
 }
 

@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using NAudio;
+using NAudio.Dsp;
 using NAudio.Wave;
 
 namespace DSound
@@ -15,13 +16,17 @@ namespace DSound
     public partial class mainWindow : Form
     {
         private IWavePlayer _waveOutDevice;
-        private MediaFoundationReader _audioFileReader;
+        private AudioFileReader _audioFileReader;
+        private List<BiQuadFilter[]> _filters;
+        private ISampleProvider _filtered;
 
-        private Boolean _playing;
+        private bool _playing;
 
         public mainWindow()
         {
             InitializeComponent();
+
+            _filters = new List<BiQuadFilter[]>();
 
             _playing = false;
         }
@@ -30,16 +35,13 @@ namespace DSound
         {
             if (openFileDialog.ShowDialog() == DialogResult.OK)
             {
-                if(_waveOutDevice != null)
-                    _waveOutDevice.Dispose();
-                _waveOutDevice = new WasapiOut();
-
-                _audioFileReader = new MediaFoundationReader(openFileDialog.FileName);
+                _audioFileReader = new AudioFileReader(openFileDialog.FileName);
                 waveViewer.WaveStream = new MediaFoundationReader(openFileDialog.FileName);
                 waveViewer.FitToScreen();
-
-                _waveOutDevice.Init(_audioFileReader);
+                              
                 playButton.Text = "Play";
+
+                Reevaluate();
             }
         }
 
@@ -86,6 +88,58 @@ namespace DSound
                 _waveOutDevice.Dispose();
                 _waveOutDevice = null;
             }
+        }
+
+        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        private void buttonHighPass_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _filters.Add(Filters.Filter.CreateFiltersTable(BiQuadFilter.HighPassFilter(_audioFileReader.WaveFormat.SampleRate, (float)CutoffNumeric.Value, (float)QNumeric.Value), _audioFileReader.WaveFormat.Channels));
+                Reevaluate();
+            }
+            catch(Exception ex)
+            { }
+}
+
+        private void buttonLowPass_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _filters.Add(
+                    Filters.Filter.CreateFiltersTable(
+                        BiQuadFilter.LowPassFilter(_audioFileReader.WaveFormat.SampleRate, (float) CutoffNumeric.Value,
+                            (float) QNumeric.Value), _audioFileReader.WaveFormat.Channels));
+                Reevaluate();
+            }
+            catch(Exception ex)
+            { }
+        }
+
+        private void Reevaluate()
+        {
+            var _filtered = new Filters.Filter(_audioFileReader, _filters);
+
+            if (_waveOutDevice != null)
+                _waveOutDevice.Dispose();
+            _waveOutDevice = new WasapiOut();
+
+            _waveOutDevice.Init(_filtered);
+        }
+
+        private void buttonClearFilters_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                _filters.Clear();
+                Reevaluate();
+            }
+            catch(Exception ex)
+            { }
         }
     }
 }
